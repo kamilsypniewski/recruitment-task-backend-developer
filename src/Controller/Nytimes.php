@@ -19,4 +19,16 @@ class Nytimes extends AbstractController
             ]
         );
     }
+
+    #[Route('/nytimes/{query}', name: 'app_nytimes_list_articles_with_filters', methods: ['GET'])]
+    public function listArticlesWithFilters(ArticleFacade $articleFacade, $query):JsonResponse
+    {
+
+        return new JsonResponse(
+            [
+                $articleFacade->getLatestAutomotiveArticles($query)
+            ]
+        );
+    }
+
 }

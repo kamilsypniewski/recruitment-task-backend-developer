@@ -11,19 +11,16 @@ class ArticleFacade implements \App\Components\Contracts\ArticleFacade
     {
     }
 
-    public function getLatestAutomotiveArticles():array
+    public function getLatestAutomotiveArticles(string $query = ''):array
     {
-        $articles =  $this->articleSearchFacade->list();
+        $articles =  $this->articleSearchFacade->list($query);
 
         $list = [];
         foreach ($articles as $article) {
-            $list[] = [
-                'title' => $article['headline']['main'],
-                'publicationDate' => $article['pub_date'],
-                'lead' => $article['lead_paragraph'],
-                'image' => $this->prepareImageWithMultimedia($article['multimedia']),
-                'url' => $article['web_url'],
-            ];
+            $list[] = array_merge(
+                $this->articleBasicData($article),
+                $this->articleExtendedData($query, $article)
+            );
         }
 
         return $list;
@@ -39,5 +36,29 @@ class ArticleFacade implements \App\Components\Contracts\ArticleFacade
         }
 
         return $image;
+    }
+
+    private function articleExtendedData(string $query, array $article): array
+    {
+        $articleExtendedData = [];
+        if (!empty($query)) {
+            $articleExtendedData = [
+                'section' => $article['section_name'] ?? '',
+                'subsection' => $article['subsection_name'] ?? '',
+            ];
+        }
+
+        return $articleExtendedData;
+    }
+
+    private function articleBasicData(array $article): array
+    {
+        return [
+            'title' => $article['headline']['main'] ?? '',
+            'publicationDate' => $article['pub_date'] ?? '',
+            'lead' => $article['lead_paragraph'] ?? '',
+            'image' => $this->prepareImageWithMultimedia($article['multimedia']),
+            'url' => $article['web_url'] ?? '',
+        ];
     }
 }

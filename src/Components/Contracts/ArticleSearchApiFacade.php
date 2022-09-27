@@ -6,5 +6,5 @@ namespace App\Components\Contracts;
 
 interface ArticleSearchApiFacade
 {
-    public function list(): array;
+    public function list(string $query): array;
 }

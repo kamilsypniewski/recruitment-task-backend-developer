@@ -11,15 +11,15 @@ class Client
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function request(string $apiPath): array
+    public function request(string $apiPath, string $apiParams): array
     {
-        $url = \sprintf('%s%s?api-key=%s', $this->apiUrl, $apiPath, $this->apiKey);
+        $url = \sprintf('%s%s?api-key=%s%s', $this->apiUrl, $apiPath, $this->apiKey, $apiParams);
 
         $client = new \GuzzleHttp\Client();
         $response = $client->request('GET', $url);
 
         if (200 !== $response->getStatusCode()) {
-            throw new \RuntimeException(sprintf('Api nytimes returned an unexpected response code %s.', $response->getStatusCode()));
+            throw new \RuntimeException(\sprintf('Api nytimes returned an unexpected response code %s.', $response->getStatusCode()));
         }
 
         try {
