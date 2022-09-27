@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Components\ArticleSearchApi;
 
 class Client
 {
-    public function __construct(private readonly string $apiUrl, private readonly string $apiKey)
-    {
+    public function __construct(
+        private readonly string $apiUrl,
+        private readonly string $apiKey
+    ) {
     }
 
     /**
@@ -15,7 +19,7 @@ class Client
     {
         $url = \sprintf('%s%s?api-key=%s%s', $this->apiUrl, $apiPath, $this->apiKey, $apiParams);
 
-        $client = new \GuzzleHttp\Client();
+        $client   = new \GuzzleHttp\Client();
         $response = $client->request('GET', $url);
 
         if (200 !== $response->getStatusCode()) {
@@ -23,10 +27,20 @@ class Client
         }
 
         try {
-            $contents = json_decode($response->getBody()->getContents(), true);
-            return $contents['response'];
+            $contents = \json_decode($response->getBody()->getContents(), true);
         } catch (\Exception $exception) {
             throw new \RuntimeException(\sprintf('Invalid Api nytimes response format, message %s.', $exception->getMessage()));
         }
+
+        if (!\is_array($contents)) {
+            throw new \RuntimeException('Invalid api response format');
+        }
+
+        $response = $contents['response'];
+        if (!\is_array($response)) {
+            throw new \RuntimeException('Invalid api response format');
+        }
+
+        return $response;
     }
 }

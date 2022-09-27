@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Components\Articles;
@@ -11,13 +12,13 @@ class ArticleFacade implements \App\Components\Contracts\ArticleFacade
     {
     }
 
-    public function getLatestAutomotiveArticles(string $query = ''):array
+    public function getLatestAutomotiveArticles(string $query = ''): array
     {
-        $articles =  $this->articleSearchFacade->list($query);
+        $articles = $this->articleSearchFacade->list($query);
 
         $list = [];
         foreach ($articles as $article) {
-            $list[] = array_merge(
+            $list[] = \array_merge(
                 $this->articleBasicData($article),
                 $this->articleExtendedData($query, $article)
             );
@@ -43,8 +44,8 @@ class ArticleFacade implements \App\Components\Contracts\ArticleFacade
         $articleExtendedData = [];
         if (!empty($query)) {
             $articleExtendedData = [
-                'section' => $article['section_name'] ?? '',
-                'subsection' => $article['subsection_name'] ?? '',
+                'section'    => $article['section_name']       ?? '',
+                'subsection' => $article['subsection_name']    ?? '',
             ];
         }
 
@@ -54,11 +55,11 @@ class ArticleFacade implements \App\Components\Contracts\ArticleFacade
     private function articleBasicData(array $article): array
     {
         return [
-            'title' => $article['headline']['main'] ?? '',
-            'publicationDate' => $article['pub_date'] ?? '',
-            'lead' => $article['lead_paragraph'] ?? '',
-            'image' => $this->prepareImageWithMultimedia($article['multimedia']),
-            'url' => $article['web_url'] ?? '',
+            'title'           => $article['headline']['main']    ?? '',
+            'publicationDate' => $article['pub_date']            ?? '',
+            'lead'            => $article['lead_paragraph']      ?? '',
+            'image'           => $this->prepareImageWithMultimedia($article['multimedia']),
+            'url'             => $article['web_url'] ?? '',
         ];
     }
 }
