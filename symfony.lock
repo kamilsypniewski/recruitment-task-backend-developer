@@ -2,6 +2,15 @@
     "doctrine/instantiator": {
         "version": "1.4.0"
     },
+    "guzzlehttp/guzzle": {
+        "version": "7.5.0"
+    },
+    "guzzlehttp/promises": {
+        "version": "1.5.2"
+    },
+    "guzzlehttp/psr7": {
+        "version": "2.4.1"
+    },
     "myclabs/deep-copy": {
         "version": "1.10.2"
     },
@@ -64,8 +73,20 @@
     "psr/event-dispatcher": {
         "version": "1.0.0"
     },
+    "psr/http-client": {
+        "version": "1.0.1"
+    },
+    "psr/http-factory": {
+        "version": "1.0.1"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/log": {
         "version": "3.0.0"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"
@@ -121,7 +142,7 @@
     "symfony/cache": {
         "version": "v6.0.3"
     },
-    "symfony/cache-contracts": {
+    "symfony/cache-Contracts": {
         "version": "v3.0.0"
     },
     "symfony/config": {
@@ -145,7 +166,7 @@
     "symfony/dependency-injection": {
         "version": "v6.0.3"
     },
-    "symfony/deprecation-contracts": {
+    "symfony/deprecation-Contracts": {
         "version": "v3.0.0"
     },
     "symfony/dom-crawler": {
@@ -160,7 +181,7 @@
     "symfony/event-dispatcher": {
         "version": "v6.0.3"
     },
-    "symfony/event-dispatcher-contracts": {
+    "symfony/event-dispatcher-Contracts": {
         "version": "v3.0.0"
     },
     "symfony/filesystem": {
@@ -249,7 +270,7 @@
     "symfony/runtime": {
         "version": "v6.0.3"
     },
-    "symfony/service-contracts": {
+    "symfony/service-Contracts": {
         "version": "v3.0.0"
     },
     "symfony/string": {
