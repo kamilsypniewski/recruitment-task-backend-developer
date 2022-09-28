@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Components\Articles;
 
 
-use App\Components\Articles\Article;
-use App\Components\Articles\ArticleFacade;
+use App\Components\Articles\Article\Article;
 use PHPUnit\Framework\TestCase;
 
 /**

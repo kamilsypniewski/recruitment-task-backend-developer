@@ -6,7 +6,7 @@ namespace App\Components\ArticleSearchApi;
 
 use GuzzleHttp\Exception\GuzzleException;
 
-class ArticleSearchApiFacade implements \App\Components\Contracts\ArticleSearchApiFacade
+final class ArticleSearchApiFacade implements \App\Components\Contracts\ArticleSearchApiFacade
 {
     private const API_PATH = 'articlesearch.json';
 

@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Components\ArticleSearchApi\Fixtures;
 
 
-use App\Components\ArticleSearchApi\Client;
+use App\Components\ArticleSearchApi\Client\Client;
 use PHPUnit\Framework\MockObject\MockObject;
-use Psr\Http\Message\ResponseInterface;
 
 trait Mocks
 {
@@ -20,8 +19,7 @@ trait Mocks
 
     protected function clientMock(): Client|MockObject
     {
-        return $this->createMock(Client::class);
+        return $this->createMock(\App\Components\ArticleSearchApi\Client::class);
     }
-
 
 }

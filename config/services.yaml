@@ -28,11 +28,10 @@ services:
     guzzle:
         class: \GuzzleHttp\Client
 
-    App\Components\ArticleSearchApi\Client:
+    App\Components\ArticleSearchApi\Client\Client:
         arguments:
             $client: '@guzzle'
             $apiUrl: '%app.api_nytimes_url%'
             $apiKey: '%app.api_nytimes_key%'
-
 
 

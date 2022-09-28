@@ -6,7 +6,7 @@ namespace App\Components\Articles;
 
 use App\Components\Contracts\ArticleSearchApiFacade;
 
-class ArticleFacade implements \App\Components\Contracts\ArticleFacade
+final class ArticleFacade implements \App\Components\Contracts\ArticleFacade
 {
     public function __construct(
         private readonly ArticleSearchApiFacade $articleSearchFacade,

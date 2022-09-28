@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Components\ArticleSearchApi;
 
-use App\Components\ArticleSearchApi\Client;
+use App\Components\ArticleSearchApi\Client\Client;
 use PHPUnit\Framework\TestCase;
 
 /**
