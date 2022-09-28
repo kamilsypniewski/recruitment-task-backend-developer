@@ -23,8 +23,20 @@ class ArticleSearchApiFacade implements \App\Components\Contracts\ArticleSearchA
         if (!empty($query)) {
             $apiParams = \sprintf('&fq=news_desk:("Automobiles") body("%s")', $query);
         }
+        $url = $this->client->getUrl(self::API_PATH, $apiParams);
 
-        $response = $this->client->request(self::API_PATH, $apiParams);
+        $response = $this->client->request($url);
+
+        $contents = \json_decode($response, true);
+
+        if (!\is_array($contents)) {
+            throw new \RuntimeException('Invalid api response format');
+        }
+
+        $response = $contents['response'];
+        if (!\is_array($response)) {
+            throw new \RuntimeException('Invalid api response format');
+        }
 
         return $response['docs'];
     }

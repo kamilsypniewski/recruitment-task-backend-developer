@@ -7,6 +7,7 @@ namespace App\Components\ArticleSearchApi;
 class Client
 {
     public function __construct(
+        private readonly \GuzzleHttp\Client $client,
         private readonly string $apiUrl,
         private readonly string $apiKey
     ) {
@@ -15,32 +16,19 @@ class Client
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function request(string $apiPath, string $apiParams): array
+    public function request(string $url): string
     {
-        $url = \sprintf('%s%s?api-key=%s%s', $this->apiUrl, $apiPath, $this->apiKey, $apiParams);
-
-        $client   = new \GuzzleHttp\Client();
-        $response = $client->request('GET', $url);
+        $response = $this->client->request('GET', $url);
 
         if (200 !== $response->getStatusCode()) {
             throw new \RuntimeException(\sprintf('Api nytimes returned an unexpected response code %s.', $response->getStatusCode()));
         }
 
-        try {
-            $contents = \json_decode($response->getBody()->getContents(), true);
-        } catch (\Exception $exception) {
-            throw new \RuntimeException(\sprintf('Invalid Api nytimes response format, message %s.', $exception->getMessage()));
-        }
+        return $response->getBody()->getContents();
+    }
 
-        if (!\is_array($contents)) {
-            throw new \RuntimeException('Invalid api response format');
-        }
-
-        $response = $contents['response'];
-        if (!\is_array($response)) {
-            throw new \RuntimeException('Invalid api response format');
-        }
-
-        return $response;
+    public function getUrl(string $apiPath, string $apiParams): string
+    {
+        return \sprintf('%s%s?api-key=%s%s', $this->apiUrl, $apiPath, $this->apiKey, $apiParams);
     }
 }

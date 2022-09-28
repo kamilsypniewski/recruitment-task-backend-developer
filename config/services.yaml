@@ -24,7 +24,15 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    ## guzzle http client
+    guzzle:
+        class: \GuzzleHttp\Client
+
     App\Components\ArticleSearchApi\Client:
         arguments:
+            $client: '@guzzle'
             $apiUrl: '%app.api_nytimes_url%'
             $apiKey: '%app.api_nytimes_key%'
+
+
+
